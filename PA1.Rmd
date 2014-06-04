@@ -1,0 +1,64 @@
+# Reproducible Research: Peer Assessment 1
+
+## Loading and preprocessing the data
+
+* set working directory 
+* laod data
+* aggregate steps per day
+
+```{r}
+setwd("~/Documents/SWE/udacity_coursera_edx/datasciencecoursera/RepData_PeerAssessment1/")
+activity <- read.csv("activity.csv")
+
+steps_per_day <- aggregate(activity$steps, by=list(activity$date), sum)
+names(steps_per_day) <- c("date", "steps")
+```
+
+
+## What is mean total number of steps taken per day?
+
+```{r fig.width=10, fig.height=6}
+hist(steps_per_day$steps, xlab="Steps per Day", main="Histogram of Steps per Day")
+```
+
+```{r}
+mean_steps <- mean(steps_per_day$steps, na.rm = TRUE)
+median_steps <- median(steps_per_day$steps, na.rm = TRUE)
+options(scipen=1, digits=1)
+```
+
+- **Mean** total number of steps taken per day: **`r mean_steps`**
+- **Median** total number of steps taken per day: **`r median_steps`**
+
+
+## What is the average daily activity pattern?
+
+```{r}
+steps_per_interval <- aggregate(activity$steps, by=list(activity$interval), mean, na.rm = TRUE)
+names(steps_per_interval) <- c("interval", "steps")
+```
+
+```{r fig.width=10, fig.height=6}
+plot(x=steps_per_interval$interval, y=steps_per_interval$steps, type="l",
+     xlab="Interval ID", ylab="Steps", main="Daily Activity")
+```
+
+```{r}
+top_id <- steps_per_interval$interval[steps_per_interval$steps==max(steps_per_interval$steps)]
+```
+The **Top ID**, i.e. theID of the 5-minute interval, which on average across all the days in the dataset, contains the maximum number of steps is **`r top_id`**
+
+
+## Imputing missing values
+
+TODO
+
+
+## Are there differences in activity patterns between weekdays and weekends?
+
+TODO
+
+
+<hr>
+<a href="#top">top</a>
+
