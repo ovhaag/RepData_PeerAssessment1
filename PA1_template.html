@@ -284,14 +284,25 @@ options(scipen=1, digits=1)
 
 <h3>second version, with more sophisticated strategy</h3>
 
-<p>Just to remember,
-the total number of <strong>missing values</strong> is <strong>2304</strong>.</p>
+<p>Just to remember,</p>
 
-<p>In the total of all 17568 observations this is 13.1%.</p>
+<ul>
+<li>the total number of <strong>missing values</strong> is <strong>2304</strong>.</li>
+<li>in the total of all 17568 observations this is 13.1%.</li>
+</ul>
 
-<p>Now lets fill in the missing values with a more sophisticated strategy: </p>
+<p>Now lets fill in the missing values with a more <strong>sophisticated strategy</strong>: 
+Use the geometric mean of the following two values</p>
 
-<pre><code class="r">sophfix &lt;- activity
+<ul>
+<li>the mean for that day (if necessry with aditional fill in)</li>
+<li>the mean for that 5-minute interval</li>
+</ul>
+
+<pre><code class="r"># code could be nicer but it does the job
+# maybe mapply is an idea for refactoring
+
+sophfix &lt;- activity
 
 fix &lt;- function(date, interval) {
     intervals_per_day &lt;- 12 * 24

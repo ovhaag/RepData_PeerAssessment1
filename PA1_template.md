@@ -118,14 +118,21 @@ Before fix
 ### second version, with more sophisticated strategy 
 
 Just to remember,
-the total number of **missing values** is **2304**.
 
-In the total of all 17568 observations this is 13.1%.
+- the total number of **missing values** is **2304**.
+- in the total of all 17568 observations this is 13.1%.
 
-Now lets fill in the missing values with a more sophisticated strategy: 
+Now lets fill in the missing values with a more **sophisticated strategy**: 
+Use the geometric mean of the following two values
+
+- the mean for that day (if necessry with aditional fill in)
+- the mean for that 5-minute interval
 
 
 ```r
+# code could be nicer but it does the job
+# maybe mapply is an idea for refactoring
+
 sophfix <- activity
 
 fix <- function(date, interval) {
